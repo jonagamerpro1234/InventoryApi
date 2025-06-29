@@ -1,0 +1,4 @@
+name: InventoryApi
+version: '0.0.0-a.1'
+main: jss.inventoryApi.InventoryApi
+api-version: '1.20'
