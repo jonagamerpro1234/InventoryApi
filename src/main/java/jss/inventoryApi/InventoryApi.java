@@ -12,54 +12,28 @@ import java.util.Map;
 
 public final class InventoryApi {
 
-    private static final Map<Player, Inventory> registeredInventories = new HashMap<>();
-    private static boolean initialized = false;
+    private static final Map<Player, RegisteredInventory> registeredInventories = new HashMap<>();
 
-    /**
-     * Inicializa los listeners del sistema de inventarios.
-     * Esto debe llamarse una vez desde el plugin principal.
-     */
-    public static void initialize(Plugin plugin) {
-        if (initialized) return;
-        PluginManager pm = Bukkit.getPluginManager();
-        pm.registerEvents(new InventoryListener(), plugin);
-        initialized = true;
+    public static void registerInventory(Player player, RegisteredInventory regInv) {
+        registeredInventories.put(player, regInv);
     }
 
-    /**
-     * Registra un inventario personalizado asociado a un jugador.
-     */
-    public static void registerInventory(Player player, Inventory inventory) {
-        registeredInventories.put(player, inventory);
+    public static void openInventory(Player player, RegisteredInventory regInv) {
+        registerInventory(player, regInv);
+        player.openInventory(regInv.getInventory());
     }
 
-    /**
-     * Desregistra un inventario.
-     */
+    public static boolean isRegistered(Player player, Inventory inventory) {
+        RegisteredInventory regInv = registeredInventories.get(player);
+        return regInv != null && regInv.getInventory().equals(inventory);
+    }
+
     public static void unregisterInventory(Player player) {
         registeredInventories.remove(player);
     }
 
-    /**
-     * Obtiene el inventario registrado para el jugador.
-     */
-    public static Inventory getInventory(Player player) {
+    public static RegisteredInventory getRegisteredInventory(Player player) {
         return registeredInventories.get(player);
-    }
-
-    /**
-     * Abre el inventario al jugador y lo registra.
-     */
-    public static void openInventory(Player player, Inventory inventory) {
-        registerInventory(player, inventory);
-        player.openInventory(inventory);
-    }
-
-    /**
-     * Verifica si el inventario abierto por el jugador está registrado.
-     */
-    public static boolean isRegistered(Player player, Inventory inventory) {
-        return registeredInventories.get(player) == inventory;
     }
 
 }

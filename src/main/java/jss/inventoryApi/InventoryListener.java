@@ -13,14 +13,12 @@ public class InventoryListener implements Listener {
     @EventHandler
     public void onClick(@NotNull InventoryClickEvent e){
         //verifica si al momento de hacer clic es un jugador, si no retorna y vuelve a intentar
-        if(!(e.getWhoClicked() instanceof Player player)) return;
+        if (!(e.getWhoClicked() instanceof Player player)) return;
 
-        //obtiene el inventario
-        Inventory clickedInventory = e.getInventory();
-
-        //verifica sie esta registrado antes de ejecutar alguna accion
-        if(InventoryApi.isRegistered(player, clickedInventory)){
-            e.setCancelled(true);
+        RegisteredInventory regInv = InventoryApi.getRegisteredInventory(player);
+        if (regInv != null && e.getInventory().equals(regInv.getInventory())) {
+            e.setCancelled(true); // prevenir que muevan cosas
+            regInv.handleClick(e); // ejecutar acción si existe
         }
     }
 
