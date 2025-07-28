@@ -1,5 +1,7 @@
-package jss.inventoryApi;
+package jss.inventoryApi.listeners;
 
+import jss.inventoryApi.wrappers.RegisteredInventory;
+import jss.inventoryApi.api.InventoryApi;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -23,7 +25,7 @@ public class InventoryListener implements Listener {
 
     @EventHandler
     public void onClose(@NotNull InventoryCloseEvent e){
-        //verifica si el inventari esta abierto por un jugador, antes de cerralo, eliminar el inventario de la cachel
+        //verifica si el inventari esta abierto por un jugador, antes de cerralo, eliminar el inventario de la cache
         if(!(e.getPlayer() instanceof Player player)) return;
 
         //Limpia el regristro de inventarios

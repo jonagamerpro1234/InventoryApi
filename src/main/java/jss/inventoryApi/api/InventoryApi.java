@@ -1,11 +1,8 @@
-package jss.inventoryApi;
+package jss.inventoryApi.api;
 
-import org.bukkit.Bukkit;
+import jss.inventoryApi.wrappers.RegisteredInventory;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.plugin.Plugin;
-import org.bukkit.plugin.PluginManager;
-import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.HashMap;
 import java.util.Map;
